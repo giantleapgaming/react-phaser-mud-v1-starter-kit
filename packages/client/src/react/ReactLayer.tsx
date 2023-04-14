@@ -1,4 +1,5 @@
 import { useStore } from "../store/mudStore";
+import { BootScreen } from "./Screens/BootScreen";
 import { Wrapper } from "./components";
 
 export const ReactLayer = () => {
@@ -8,12 +9,10 @@ export const ReactLayer = () => {
       phaserLayer: state.phaserLayer,
     };
   });
-
   if (!layers.networkLayer || !layers.phaserLayer) return <></>;
-
   return (
     <Wrapper>
-      <p>Hellow</p>
+      <BootScreen />
     </Wrapper>
   );
 };

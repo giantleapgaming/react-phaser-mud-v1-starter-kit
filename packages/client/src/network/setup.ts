@@ -1,14 +1,15 @@
 import { setupMUDNetwork } from "@latticexyz/std-client";
 import { SystemTypes } from "contracts/types/SystemTypes";
-import { productionConfig } from "../mud/config";
 import { contractComponents, clientComponents, world } from "../mud";
 import { SystemAbis } from "contracts/types/SystemAbis.mjs";
+import { getNetworkConfig } from "../utils/getNetworkConfig";
 
 export type SetupResult = Awaited<ReturnType<typeof setup>>;
 
 export async function setup() {
+  const config = getNetworkConfig()
   const result = await setupMUDNetwork<typeof contractComponents, SystemTypes>(
-    productionConfig,
+    config,
     world,
     contractComponents,
     SystemAbis

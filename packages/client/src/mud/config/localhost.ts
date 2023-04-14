@@ -12,10 +12,10 @@ export const localhostConfig: SetupContractConfig & { faucetServiceUrl?: string 
  provider: {
   jsonRpcUrl: params.get("rpc") ?? "http://localhost:8545",
   wsRpcUrl: params.get("wsRpc") ?? "ws://localhost:8545",
-  chainId: Number(params.get("chainId")) || 344215,
+  chainId: Number(params.get("chainId")) || 31337,
  },
  privateKey: getBurnerWallet().privateKey,
- chainId: Number(params.get("chainId")) || 344215,
+ chainId: Number(params.get("chainId")) || 31337,
  snapshotServiceUrl: params.get("snapshot") ?? undefined,
  faucetServiceUrl: params.get("faucet") ?? undefined,
  initialBlockNumber: Number(params.get("initialBlockNumber")) || 0,

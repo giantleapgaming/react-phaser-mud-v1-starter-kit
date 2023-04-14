@@ -24,9 +24,9 @@ export const phaserConfig = {
         [Assets.MainAtlas]: {
           type: AssetType.MultiAtlas,
           key: Assets.MainAtlas,
-          path: "/atlases/sprites/atlas.json",
+          path: "/assets/atlases/atlas.json",
           options: {
-            imagePath: "/atlases/sprites/",
+            imagePath: "/assets/atlases/",
           },
         },
       },
