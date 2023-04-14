@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { LoadingScreenBanner } from "../components/LoadingScreenBanner";
 import styled from "styled-components";
-import { useMUD } from "../hooks";
 import { GodID, SyncState } from "@latticexyz/network";
 import { getComponentValue } from "@latticexyz/recs";
+import { useMUD } from "../../store/mudStore";
 
 export const BootScreen = () => {
-  const [opacity, setOpacity] = useState(0);
+  const [opacity, setOpacity] = useState(1);
+  const [today, setDate] = useState(new Date()); // Save the current date to be able to trigger an update
   const {
     networkLayer: {
       world,
       components: { LoadingState },
     },
   } = useMUD();
-  const GodEntityIndex = world.entityToIndex.get(GodID);
 
+  const GodEntityIndex = world.entityToIndex.get(GodID);
   const loadingState =
     GodEntityIndex == null
       ? null
@@ -22,7 +23,16 @@ export const BootScreen = () => {
 
   useEffect(() => setOpacity(1), []);
 
-  if (loadingState == null) {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDate(new Date());
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  if (loadingState?.state === SyncState.CONNECTING) {
     return (
       <Container style={{ opacity }}>
         <img src="/img/loadingScreen.png" className="object-cover"></img>
@@ -32,7 +42,7 @@ export const BootScreen = () => {
       </Container>
     );
   }
-  if (loadingState.state !== SyncState.LIVE) {
+  if (loadingState && loadingState?.state === SyncState.INITIAL) {
     return (
       <Container style={{ opacity }}>
         <div>

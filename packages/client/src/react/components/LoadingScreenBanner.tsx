@@ -37,4 +37,5 @@ const LoadingBarContainer = styled.div`
 const LoadingBar = styled.div<{ width: number }>`
   width: ${(props) => props.width}%;
   height: 16px;
+  background: green;
 `;

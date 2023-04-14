@@ -1,6 +1,6 @@
 import { Browser, createBrowserDevComponents } from "@latticexyz/ecs-browser";
 import { ClickWrapper } from "./ClickWrapper";
-import { useMUD } from "../hooks";
+import { useMUD } from "../../store/mudStore";
 
 export const ECSBrowser = () => {
   const layers = useMUD();
