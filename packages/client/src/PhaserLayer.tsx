@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { NetworkLayer } from "./network";
 import { usePhaserLayer } from "./react/hooks/usePhaserLayer";
 import { useStore } from "./store/mudStore";
