@@ -29,11 +29,6 @@ export const phaserConfig = {
             imagePath: "/atlases/sprites/",
           },
         },
-        [Assets.Missile]: {
-          type: AssetType.Image,
-          key: Assets.Missile,
-          path: "/img/missile.png",
-        },
       },
       maps: {
         [Maps.Main]: defineMapConfig({

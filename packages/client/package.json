@@ -38,6 +38,7 @@
     "@latticexyz/schema-type": "^1.42.0",
     "@latticexyz/services": "^1.42.0",
     "@latticexyz/std-client": "^1.42.0",
+    "@latticexyz/store": "^1.42.0",
     "@latticexyz/utils": "^1.42.0",
     "@latticexyz/world": "^1.42.0",
     "async-mutex": "^0.4.0",
