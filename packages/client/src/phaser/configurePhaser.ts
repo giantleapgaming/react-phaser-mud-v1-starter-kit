@@ -5,68 +5,57 @@ import {
   defineMapConfig,
   defineCameraConfig,
 } from "@latticexyz/phaserx";
-import worldTileset from "../../../public/assets/tilesets/world.png";
+import { Sprites, Assets, Maps, Scenes, TILE_HEIGHT, TILE_WIDTH, Animations } from "./constants";
 import {
-  Sprites,
-  Assets,
-  Maps,
-  Scenes,
-  TILE_HEIGHT,
-  TILE_WIDTH,
-} from "./constants";
+  Tileset as OverworldTileset,
+  TileAnimations as OverworldTileAnimations,
+} from "../phaser/assets/tilesets/overworldTileset";
+import overworldTileset from "./assets/tilesets/overworld-tileset.png";
+import mountainTileset from "./assets/tilesets/mountain-tileset.png";
 
 const ANIMATION_INTERVAL = 200;
-
-const mainMap = defineMapConfig({
-  chunkSize: TILE_WIDTH * 64, // tile size * tile amount
-  tileWidth: TILE_WIDTH,
-  tileHeight: TILE_HEIGHT,
-  backgroundTile: [1],
-  animationInterval: ANIMATION_INTERVAL,
-  layers: {
-    layers: {
-      Background: { tilesets: ["Default"] },
-      Foreground: { tilesets: ["Default"] },
-    },
-    defaultLayer: "Background",
-  },
-});
 
 export const phaserConfig = {
   sceneConfig: {
     [Scenes.Main]: defineSceneConfig({
       assets: {
-        [Assets.Tileset]: {
-          type: AssetType.Image,
-          key: Assets.Tileset,
-          path: worldTileset,
-        },
+        [Assets.OverworldTileset]: { type: AssetType.Image, key: Assets.OverworldTileset, path: overworldTileset },
+        [Assets.MountainTileset]: { type: AssetType.Image, key: Assets.MountainTileset, path: mountainTileset },
         [Assets.MainAtlas]: {
           type: AssetType.MultiAtlas,
           key: Assets.MainAtlas,
-          // Add a timestamp to the end of the path to prevent caching
-          path: `/assets/atlases/atlas.json?timestamp=${Date.now()}`,
+          path: "/atlases/sprites/atlas.json",
           options: {
-            imagePath: "/assets/atlases/",
+            imagePath: "/atlases/sprites/",
           },
+        },
+        [Assets.Missile]: {
+          type: AssetType.Image,
+          key: Assets.Missile,
+          path: "/img/missile.png",
         },
       },
       maps: {
-        [Maps.Main]: mainMap,
-      },
-      sprites: {
-        [Sprites.Soldier]: {
-          assetKey: Assets.MainAtlas,
-          frame: "sprites/soldier/idle/0.png",
-        },
-      },
-      animations: [],
-      tilesets: {
-        Default: {
-          assetKey: Assets.Tileset,
+        [Maps.Main]: defineMapConfig({
+          chunkSize: TILE_WIDTH * 64, // tile size * tile amount
           tileWidth: TILE_WIDTH,
           tileHeight: TILE_HEIGHT,
-        },
+          backgroundTile: [1],
+          animationInterval: ANIMATION_INTERVAL,
+          tileAnimations: OverworldTileAnimations,
+          layers: {
+            layers: {
+              Background: { tilesets: ["Default"], hasHueTintShader: true },
+              Foreground: { tilesets: ["Default"], hasHueTintShader: true },
+            },
+            defaultLayer: "Background",
+          },
+        }),
+      },
+      sprites: {},
+      animations: [],
+      tilesets: {
+        Default: { assetKey: Assets.OverworldTileset, tileWidth: TILE_WIDTH, tileHeight: TILE_HEIGHT },
       },
     }),
   },
@@ -76,10 +65,10 @@ export const phaserConfig = {
     mode: Phaser.Scale.NONE,
   }),
   cameraConfig: defineCameraConfig({
-    pinchSpeed: 1,
-    wheelSpeed: 1,
-    maxZoom: 3,
-    minZoom: 1,
+    pinchSpeed: 0.05,
+    wheelSpeed: 0.1,
+    maxZoom: 2,
+    minZoom: 0.05,
   }),
-  cullingChunkSize: TILE_HEIGHT * 16,
+  cullingChunkSize: TILE_HEIGHT * 256,
 };

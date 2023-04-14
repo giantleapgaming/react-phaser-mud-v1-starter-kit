@@ -17,22 +17,22 @@ export const createNetworkLayer = async () => {
   component.id = name;
  });
 
- const signer = network.signer.get();
- if (!signer) throw new Error("No signer found");
+ // const signer = network.signer.get();
+ // if (!signer) throw new Error("No signer found");
 
- const worldContract = IWorld__factory.connect(config.worldAddress, signer);
+ // const worldContract = IWorld__factory.connect(config.worldAddress, signer);
 
- const actions = createActionSystem(world, txReduced$);
+ // const actions = createActionSystem(world, txReduced$);
 
 
  const layer = {
   world,
-  worldContract,
+  // worldContract,
   worldSend,
   singletonEntity,
   network,
   components,
-  actions,
+  // actions,
   playerEntity,
   playerEntityId,
  };
