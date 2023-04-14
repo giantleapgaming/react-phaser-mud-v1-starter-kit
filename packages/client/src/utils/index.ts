@@ -1,0 +1,1 @@
+export { getBurnerWallet } from './getBurnerWallet'

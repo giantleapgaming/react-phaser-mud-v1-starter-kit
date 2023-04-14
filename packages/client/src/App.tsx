@@ -1,24 +1,23 @@
-import { useComponentValue } from "@latticexyz/react";
-import { useMUD } from "./MUDContext";
-
+import { useEffect } from "react";
+import { useNetworkLayer } from "./react/hooks";
+import { useStore } from "./store/mudStore";
+import { PhaserLayer } from "./PhaserLayer";
+import { ReactLayer } from "./react/ReactLayer";
+import { Toaster } from "sonner";
 export const App = () => {
-  const { components, systems, singletonEntity, singletonEntityId } = useMUD();
-  const counter = useComponentValue(components.Counter, singletonEntity);
+  const networkLayer = useNetworkLayer();
+
+  useEffect(() => {
+    if (networkLayer) {
+      useStore.setState({ networkLayer });
+    }
+  }, [networkLayer]);
+
   return (
-    <>
-      <div>
-        Counter: <span>{counter?.value ?? "??"}</span>
-      </div>
-      <button
-        type="button"
-        className="border"
-        onClick={(event) => {
-          event.preventDefault();
-          systems["system.Increment"].executeTyped(singletonEntityId);
-        }}
-      >
-        Increment
-      </button>
-    </>
+    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+      <PhaserLayer networkLayer={networkLayer} />
+      <Toaster />
+      <ReactLayer />
+    </div>
   );
 };

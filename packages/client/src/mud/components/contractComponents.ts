@@ -1,5 +1,5 @@
 import { defineNumberComponent } from "@latticexyz/std-client";
-import { world } from "./world";
+import { world } from "../world";
 
 export const contractComponents = {
   Counter: defineNumberComponent(world, {
