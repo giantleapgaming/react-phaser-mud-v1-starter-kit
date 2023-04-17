@@ -10,6 +10,7 @@ export const ReactLayer = () => {
     };
   });
   if (!layers.networkLayer || !layers.phaserLayer) return <></>;
+
   return (
     <Wrapper>
       <BootScreen />

@@ -4,10 +4,12 @@ import styled from "styled-components";
 import { GodID, SyncState } from "@latticexyz/network";
 import { getComponentValue } from "@latticexyz/recs";
 import { useMUD } from "../../store/mudStore";
+import { useRenderSecond } from "../hooks";
 
 export const BootScreen = () => {
   const [opacity, setOpacity] = useState(1);
-  const [today, setDate] = useState(new Date()); // Save the current date to be able to trigger an update
+  const { second } = useRenderSecond();
+
   const {
     networkLayer: {
       world,
@@ -22,15 +24,6 @@ export const BootScreen = () => {
       : getComponentValue(LoadingState, GodEntityIndex);
 
   useEffect(() => setOpacity(1), []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   if (loadingState?.state === SyncState.CONNECTING) {
     return (
